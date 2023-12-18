@@ -1,0 +1,47 @@
+{
+    "name": "@plenny/picture",
+    "description": "Picture component for Vue apps.",
+    "keywords": ["plenny", "vue", "picture"],
+    "version": "0.1.0",
+    "license": "MIT",
+    "homepage": "https://github.com/rafalkrawiec/plenny-picture",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/rafalkrawiec/plenny-picture.git"
+    },
+    "bugs": {
+        "url": "https://github.com/rafalkrawiec/plenny-picture/issues",
+        "email": "rafal.krawiec16@gmail.com"
+    },
+    "author": {
+        "name": "Rafał Krawiec",
+        "email": "rafal.krawiec16@gmail.com"
+    },
+    "type": "module",
+    "types": "./dist/picture.d.ts",
+    "module": "./dist/picture.js",
+    "main": "./dist/picture.cjs",
+    "files": ["dist"],
+    "exports": {
+        ".": {
+            "types": "./dist/picture.d.ts",
+            "import": "./dist/picture.js",
+            "require": "./dist/picture.cjs"
+        }
+    },
+    "scripts": {
+        "dev": "vite build -m development --watch",
+        "build": "vite build && tail -n +2 src/extensions.ts >> dist/picture.d.ts"
+    },
+    "devDependencies": {
+        "@plenny/vite-externalizer": "^0.1.0",
+        "@types/node": "^20.10.0",
+        "terser": "^5.26.0",
+        "typescript": "^5.0.0",
+        "vite": "^5.0.0",
+        "vite-plugin-dts": "^3.6.0"
+    },
+    "dependencies": {
+        "vue": "^3.3.0"
+    }
+}
