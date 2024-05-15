@@ -52,7 +52,7 @@ export const MediaPicture = defineComponent({
       }
 
       return [
-        createPhotosFromFilename('fallback.jpg'),
+        createPhotosFromFilename(this.fallback || 'fallback.jpg'),
       ];
     },
   },
@@ -133,8 +133,8 @@ export function parseSize(raw?: string) {
 
     let size: any = entry.match(/\d+x\d+/);
     let density: any = entry.match(/\s(\d+)x/);
-    let min: any = entry.match(/max (\d+)/);
-    let max: any = entry.match(/min (\d+)/);
+    let min: any = entry.match(/min (\d+)/);
+    let max: any = entry.match(/max (\d+)/);
 
     if (density) density = Number(density[1]);
     if (min) min = Number(min[1]);
