@@ -2,7 +2,7 @@
   "name": "@plenny/picture",
   "description": "Picture component for Vue apps.",
   "keywords": ["plenny", "vue", "picture"],
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "homepage": "https://github.com/rafalkrawiec/plenny-picture",
   "repository": {

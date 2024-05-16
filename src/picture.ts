@@ -22,7 +22,7 @@ export const MediaPicture = defineComponent({
     sizes: { type: String, required: false },
     alt: { type: String, required: false, default: '' },
     loading: { type: String, required: false, default: 'lazy' },
-    fallback: { type: String, required: false },
+    fallback: { type: String, required: false, default: 'fallback.jpg' },
     multi: { type: Boolean, required: false, default: false },
   },
   computed: {
@@ -52,7 +52,7 @@ export const MediaPicture = defineComponent({
       }
 
       return [
-        createPhotosFromFilename(this.fallback || 'fallback.jpg'),
+        createPhotosFromFilename(this.fallback),
       ];
     },
   },
@@ -60,12 +60,12 @@ export const MediaPicture = defineComponent({
     return this.media.map((photo) => {
       let map = parseSize(this.sizes).map(({ size, density, min, max }) => [
         h('source', {
-          srcSet: photoUrl(size, density, photo.filename, true),
+          srcSet: photoUrl(photo.filename || this.fallback, size, density, true),
           media: mediaQuery(min, max),
           type: 'image/webp',
         }),
         h('source', {
-          srcSet: photoUrl(size, density, photo.filename, false),
+          srcSet: photoUrl(photo.filename || this.fallback, size, density, false),
           media: mediaQuery(min, max),
           type: photo.mime,
         }),
@@ -73,11 +73,11 @@ export const MediaPicture = defineComponent({
 
       let image = [
         h('source', {
-          srcSet: photoUrl(undefined, undefined, photo.filename, true),
+          srcSet: photoUrl(photo.filename || this.fallback, undefined, undefined, true),
           type: 'image/webp',
         }),
         h('img', {
-          src: photoUrl(undefined, undefined, photo.filename),
+          src: photoUrl(photo.filename || this.fallback, undefined, undefined),
           alt: photo.alt || this.alt,
           loading: this.loading,
         }),
@@ -88,20 +88,18 @@ export const MediaPicture = defineComponent({
   },
 });
 
-export function photoUrl(size?: string, density?: number, filename?: string, webp: boolean = false) {
+export function photoUrl(filename: string, size?: string, density?: number, webp: boolean = false) {
   let path = `/photos`;
 
   if (size) {
     path = `${path}/${size}`;
   }
 
-  if (filename) {
-    if (webp) {
-      filename = filename.substring(0, filename.lastIndexOf('.')) + '.webp';
-    }
-
-    path = `${path}/${filename}`;
+  if (webp) {
+    filename = filename.substring(0, filename.lastIndexOf('.')) + '.webp';
   }
+
+  path = `${path}/${filename}`;
 
   if (density) {
     path = `${path} ${density}x`;
