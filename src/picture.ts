@@ -17,7 +17,7 @@ export const MediaPicture = defineComponent({
   name: 'MediaPicture',
   props: {
     model: { type: Object as PropType<Photoable>, required: false },
-    photo: { type: [Object, Array, String] as PropType<Photo | Photo[] | string>, required: false },
+    photo: { type: [Object, Array, String] as PropType<Photo | Photo[] | string | null>, required: false },
     type: { type: String, required: false },
     sizes: { type: String, required: false },
     alt: { type: String, required: false, default: '' },
